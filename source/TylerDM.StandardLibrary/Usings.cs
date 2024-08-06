@@ -1,0 +1,11 @@
+﻿global using TylerDM.StandardLibrary.System;
+global using TylerDM.StandardLibrary.System.Linq;
+global using System.Linq.Expressions;
+global using System.Reflection;
+global using System.ComponentModel.DataAnnotations;
+global using System.Text;
+global using System;
+global using System.Collections.Generic;
+global using System.Collections;
+global using System.Linq;
+global using System.Threading.Tasks;
