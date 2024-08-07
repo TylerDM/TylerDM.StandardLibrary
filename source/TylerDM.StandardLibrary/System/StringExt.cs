@@ -4,9 +4,45 @@ public static class StringExt
 {
 	#region const
 	private static readonly char[] _numbers = [.. "0123456789"];
+	private const StringSplitOptions _removeAndTrim =
+	StringSplitOptions.RemoveEmptyEntries |
+	StringSplitOptions.TrimEntries;
+	private const StringComparison _sc =
+		StringComparison.InvariantCultureIgnoreCase;
+	private static readonly char[] _wordDelineators = [.. " \t\n\r"];
 	#endregion
 
 	#region methods
+	public static string GetFirstLine(this string text) =>
+		text
+			.Replace("\r\n", "\n")
+			.SplitX('\n')
+			.FirstOrDefault() ?? string.Empty;
+
+	public static string Remove(string input, string remove) =>
+	input.Replace(remove, string.Empty);
+
+	public static string[] SplitX(this string text, char ch) =>
+		text.Split(ch, _removeAndTrim);
+
+	public static string[] SplitX(this string text, string str) =>
+		text.Split(str, _removeAndTrim);
+
+	public static string[] SplitX(this string text, char[] chs) =>
+		text.Split(chs, _removeAndTrim);
+
+	public static bool ContainsX(this string text, char ch) =>
+		text.Contains(ch, _sc);
+
+	public static bool ContainsX(this string text, string str) =>
+		text.Contains(str, _sc);
+
+	public static int CountWords(this string text) =>
+		text.Split(_wordDelineators, StringSplitOptions.RemoveEmptyEntries).Length;
+
+	public static int Count(this string text, char ch) =>
+		text.Count(x => x == ch);
+
 	public static string SubstringSoft(this string str, int index, int length)
 	{
 		if (index > str.Length) return string.Empty;

@@ -1,0 +1,1 @@
+This library contains helpful classes and methods I've created for use in many applications.  It does not have any references to specific SDKs or libraries to the fullest extent possible.  The notable exception being dependency injection libraries.
