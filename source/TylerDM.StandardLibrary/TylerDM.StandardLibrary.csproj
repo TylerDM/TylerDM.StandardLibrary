@@ -1,19 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<Nullable>enable</Nullable>
-		<RootNamespace>TylerDM.StandardLibrary</RootNamespace>
 		<IsPackable>true</IsPackable>
-		<VersionPrefix>$(GitVersion_NuGetVersionV2)</VersionPrefix>
-		<Version>$(GitVersion_NuGetVersionV2)</Version>
+		<Version>1.0.1</Version>
 		<RepositoryType>Git</RepositoryType>
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Update="Nerdbank.GitVersioning" Version="3.6.139" />
-	</ItemGroup>
 
 </Project>
