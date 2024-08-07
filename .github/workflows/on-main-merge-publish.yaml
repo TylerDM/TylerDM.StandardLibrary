@@ -9,9 +9,6 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    defaults:
-      run: 
-        working-directory: source
 
     steps:
       - name: Set up Dotnet.
