@@ -1,6 +1,6 @@
 ﻿namespace TylerDM.StandardLibrary.System;
 
-public readonly struct DateTimeRange
+public readonly struct DateTimeRange : ITimeRange<DateTime>
 {
 	#region properties
 	public DateTime Start { get; }

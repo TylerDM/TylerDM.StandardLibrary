@@ -1,6 +1,6 @@
 ﻿namespace TylerDM.StandardLibrary.System;
 
-public readonly struct DateRange
+public readonly struct DateOnlyRange : IEnumerable<DateOnly>, IEnumerable, ITimeRange<DateOnly>
 {
 	#region properties
 	public DateOnly Start { get; }
@@ -8,7 +8,7 @@ public readonly struct DateRange
 	#endregion
 
 	#region constructors
-	public DateRange(DateOnly start, DateOnly end)
+	public DateOnlyRange(DateOnly start, DateOnly end)
 	{
 		ArgumentOutOfRangeException.ThrowIfEqual(start, default, nameof(start));
 		ArgumentOutOfRangeException.ThrowIfEqual(start, DateOnly.MinValue, nameof(start));
@@ -24,24 +24,13 @@ public readonly struct DateRange
 	#endregion
 
 	#region methods
-	public IEnumerable<DateOnly> GetDatesInclusive()
-	{
-		var current = Start;
-		while (current < End)
-		{
-			yield return current;
-			current = current.AddDays(1);
-		}
-		yield return current;
-	}
-
-	public static DateRange? ParseNullable(string str)
+	public static DateOnlyRange? ParseNullable(string str)
 	{
 		if (TryParse(str, out var result)) return result;
 		return null;
 	}
 
-	public static bool TryParse(string str, out DateRange result)
+	public static bool TryParse(string str, out DateOnlyRange result)
 	{
 		var parts = splitSegments(str);
 		if (
@@ -57,7 +46,7 @@ public readonly struct DateRange
 		return false;
 	}
 
-	public static DateRange Parse(string str)
+	public static DateOnlyRange Parse(string str)
 	{
 		var parts = splitSegments(str);
 		var start = DateOnly.Parse(parts[0]);
@@ -70,6 +59,21 @@ public readonly struct DateRange
 
 	public string ToString(string? format) =>
 		$"{Start.ToString(format)} - {End.ToString(format)}";
+
+	public IEnumerator<DateOnly> GetEnumerator()
+	{
+		var current = Start;
+		do
+		{
+			yield return current;
+			current = current.AddDays(1);
+		}
+		while (current < End);
+		yield return End;
+	}
+
+	IEnumerator IEnumerable.GetEnumerator() =>
+		GetEnumerator();
 	#endregion
 
 	#region private methods
