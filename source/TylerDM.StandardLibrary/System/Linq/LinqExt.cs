@@ -11,4 +11,7 @@ public static class LinqExt
 			next = getNext(next);
 		}
 	}
+
+	public static IEnumerable<T> SelectMany<T>(this IEnumerable<IEnumerable<T>> enumerables) =>
+		enumerables.SelectMany(x => x);
 }

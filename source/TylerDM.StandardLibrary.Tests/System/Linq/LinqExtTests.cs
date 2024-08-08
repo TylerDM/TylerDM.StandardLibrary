@@ -12,4 +12,13 @@ public static class LinqExtTests
 		if (array.Length != 3)
 			throw new Exception("Incorrect number of elements returned.");
 	}
+
+	[Fact]
+	public static void TestSelectMany()
+	{
+		var array = new int[][] { [0], [0, 0] };
+		var flattened = array.SelectMany().ToArray();
+		if (flattened.Length != 3)
+			throw new Exception();
+	}
 }
