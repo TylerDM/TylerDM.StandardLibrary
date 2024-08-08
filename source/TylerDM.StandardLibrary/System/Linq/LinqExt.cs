@@ -2,9 +2,9 @@
 
 public static class LinqExt
 {
-	public static IEnumerable<T> SelectFollow<T>(this T start, Func<T, T?> getNext)
+	public static IEnumerable<T> SelectFollow<T>(this T root, Func<T, T?> getNext, bool includeRoot = true)
 	{
-		var next = start;
+		var next = includeRoot ? root : getNext(root);
 		while (next is not null)
 		{
 			yield return next;
