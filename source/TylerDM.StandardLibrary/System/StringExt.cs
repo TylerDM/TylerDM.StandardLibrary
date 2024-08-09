@@ -20,7 +20,7 @@ public static class StringExt
 			.FirstOrDefault() ?? string.Empty;
 
 	public static string Remove(string input, string remove) =>
-	input.Replace(remove, string.Empty);
+		input.Replace(remove, string.Empty);
 
 	public static string[] SplitX(this string text, char ch) =>
 		text.Split(ch, _removeAndTrim);
