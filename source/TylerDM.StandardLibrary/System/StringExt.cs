@@ -19,7 +19,7 @@ public static class StringExt
 			.SplitX('\n')
 			.FirstOrDefault() ?? string.Empty;
 
-	public static string Remove(string input, string remove) =>
+	public static string Remove(this string input, string remove) =>
 		input.Replace(remove, string.Empty);
 
 	public static string[] SplitX(this string text, char ch) =>
