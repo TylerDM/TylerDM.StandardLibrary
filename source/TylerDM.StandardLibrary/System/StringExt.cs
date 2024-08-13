@@ -13,6 +13,9 @@ public static class StringExt
 	#endregion
 
 	#region methods
+	public static string WhiteSpaceCoalesce(params string[] strings) =>
+		strings.FirstOrDefault(x => string.IsNullOrWhiteSpace(x) == false) ?? "";
+
 	public static string GetFirstLine(this string text) =>
 		text
 			.Replace("\r\n", "\n")
