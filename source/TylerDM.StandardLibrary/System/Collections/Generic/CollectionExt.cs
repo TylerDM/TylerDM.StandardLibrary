@@ -2,9 +2,9 @@
 
 public static class CollectionExt
 {
-	public static void AddRange<T>(this ICollection<T> list, IEnumerable<T> items)
-	{
-		foreach (var item in items)
-			list.Add(item);
-	}
+	public static void AddRange<T>(this ICollection<T> list, IEnumerable<T> items) =>
+		items.ForEach(list.Add);
+
+	public static void AddRange<T>(this ICollection<T> list, params T[] items) =>
+		items.ForEach(list.Add);
 }
