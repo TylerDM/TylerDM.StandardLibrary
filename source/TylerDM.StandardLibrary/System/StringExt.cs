@@ -3,6 +3,8 @@
 public static class StringExt
 {
 	#region const
+	public static string[] LineEndings { get; } = ["\r\n", "\n"];
+
 	private static readonly char[] _numbers = [.. "0123456789"];
 	private const StringSplitOptions _removeAndTrim =
 	StringSplitOptions.RemoveEmptyEntries |
@@ -13,17 +15,22 @@ public static class StringExt
 	#endregion
 
 	#region methods
+	public static string[] SplitLines(this string text) =>
+		text.SplitX(LineEndings);
+
 	public static string WhiteSpaceCoalesce(params string[] strings) =>
 		strings.FirstOrDefault(x => string.IsNullOrWhiteSpace(x) == false) ?? "";
 
 	public static string GetFirstLine(this string text) =>
 		text
-			.Replace("\r\n", "\n")
-			.SplitX('\n')
+			.SplitLines()
 			.FirstOrDefault() ?? string.Empty;
 
 	public static string Remove(this string input, string remove) =>
 		input.Replace(remove, string.Empty);
+
+	public static string[] SplitX(this string text, string[] separators) =>
+		text.Split(separators, _removeAndTrim);
 
 	public static string[] SplitX(this string text, char ch) =>
 		text.Split(ch, _removeAndTrim);
