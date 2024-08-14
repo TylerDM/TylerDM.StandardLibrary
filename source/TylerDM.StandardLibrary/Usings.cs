@@ -11,3 +11,5 @@ global using System.Linq;
 global using System.Threading.Tasks;
 global using Microsoft.Extensions.DependencyInjection;
 global using System.Threading;
+global using TylerDM.StandardLibrary.System.Collections.Generic;
+global using TylerDM.StandardLibrary.System.Threading;
