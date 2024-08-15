@@ -70,13 +70,8 @@ public static class StringExt
 	public static string OnlyCharacters(this string str, char[] whitelist) =>
 		new(str.Where(x => whitelist.Contains(x)).ToArray());
 
-	public static string WhitespaceCoalesce(this IEnumerable<string?> strs)
-	{
-		foreach (var str in strs)
-			if (string.IsNullOrWhiteSpace(str) is false)
-				return str;
-		return string.Empty;
-	}
+	public static string WhitespaceCoalesce(this IEnumerable<string?> strs) =>
+		strs.FirstOrDefault(x => string.IsNullOrWhiteSpace(x) == false) ?? "";
 
 	public static string WhitespaceCoalesce(params string?[] strs) =>
 		WhitespaceCoalesce((IEnumerable<string?>)strs);
