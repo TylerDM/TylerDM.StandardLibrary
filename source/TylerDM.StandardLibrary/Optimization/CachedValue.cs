@@ -4,7 +4,7 @@ namespace TylerDM.StandardLibrary.Optimization;
 
 public class CachedValue<T>(Func<T> func)
 {
-	private readonly object _lock = new();
+	private readonly SemaphoreSlim _semaphore = new(1, 1);
 
 	private bool hasValue = false;
 	private T value = default;
@@ -12,15 +12,13 @@ public class CachedValue<T>(Func<T> func)
 	public void Clear() =>
 		hasValue = false;
 
-	public T GetValue()
-	{
-		lock (_lock)
+	public T GetValue() =>
+		_semaphore.WaitThen(() =>
 		{
 			if (hasValue) return value;
 
 			value = func();
 			hasValue = true;
 			return value;
-		}
-	}
+		});
 }
