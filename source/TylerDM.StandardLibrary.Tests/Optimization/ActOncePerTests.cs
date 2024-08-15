@@ -1,4 +1,4 @@
-﻿namespace TylerDM.StandardLibrary.System;
+﻿namespace TylerDM.StandardLibrary.Optimization;
 
 public class ActOncePerTests
 {
