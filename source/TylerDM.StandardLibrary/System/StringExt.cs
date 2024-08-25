@@ -15,6 +15,21 @@ public static class StringExt
 	#endregion
 
 	#region methods
+	/// <summary>
+	/// Throw if IsNullOrWhiteSpace() == false.
+	/// </summary>
+	public static void RequireContent(this string value)
+	{
+		if (value.HasContent() == false) 
+			throw new Exception("Unexpected null or whitespace string.");
+	}
+
+	/// <summary>
+	/// Inverse of IsNullOrWhiteSpace().
+	/// </summary>
+	public static bool HasContent(this string text) =>
+		string.IsNullOrWhiteSpace(text) == false;
+
 	public static string[] SplitLines(this string text) =>
 		text.SplitX(LineEndings);
 
