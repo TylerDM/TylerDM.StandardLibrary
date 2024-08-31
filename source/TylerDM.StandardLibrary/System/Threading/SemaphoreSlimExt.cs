@@ -4,9 +4,9 @@ public static class SemaphoreSlimExt
 {
 	public static void WaitThen(this SemaphoreSlim semaphore, Action action)
 	{
+		semaphore.Wait();
 		try
 		{
-			semaphore.Wait();
 			action();
 		}
 		finally
@@ -17,9 +17,9 @@ public static class SemaphoreSlimExt
 
 	public static T WaitThen<T>(this SemaphoreSlim semaphore, Func<T> action)
 	{
+		semaphore.Wait();
 		try
 		{
-			semaphore.Wait();
 			return action();
 		}
 		finally
@@ -30,9 +30,9 @@ public static class SemaphoreSlimExt
 
 	public static async Task WaitThenAsync(this SemaphoreSlim semaphore, Func<Task> funcTask)
 	{
+		await semaphore.WaitAsync();
 		try
 		{
-			await semaphore.WaitAsync();
 			await funcTask();
 		}
 		finally
@@ -43,9 +43,9 @@ public static class SemaphoreSlimExt
 
 	public static async Task<T> WaitThenAsync<T>(this SemaphoreSlim semaphore, Func<Task<T>> funcTask)
 	{
+		await semaphore.WaitAsync();
 		try
 		{
-			await semaphore.WaitAsync();
 			return await funcTask();
 		}
 		finally
@@ -56,9 +56,9 @@ public static class SemaphoreSlimExt
 
 	public static async Task WaitThenAsync(this SemaphoreSlim semaphore, Action action)
 	{
+		await semaphore.WaitAsync();
 		try
 		{
-			await semaphore.WaitAsync();
 			action();
 		}
 		finally
@@ -69,9 +69,9 @@ public static class SemaphoreSlimExt
 
 	public static async Task<T> WaitThenAsync<T>(this SemaphoreSlim semaphore, Func<T> func)
 	{
+		await semaphore.WaitAsync();
 		try
 		{
-			await semaphore.WaitAsync();
 			return func();
 		}
 		finally

@@ -12,7 +12,7 @@ public class CachedAsyncValue<T>(Func<Task<T>> func)
 	public void Clear() =>
 		hasValue = false;
 
-	public Task<T> GetValue() =>
+	public Task<T> GetValueAsync() =>
 		_semaphore.WaitThenAsync(async () =>
 		{
 			if (hasValue) return value;
