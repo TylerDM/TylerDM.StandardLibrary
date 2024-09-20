@@ -13,3 +13,7 @@ global using Microsoft.Extensions.DependencyInjection;
 global using System.Threading;
 global using TylerDM.StandardLibrary.System.Collections.Generic;
 global using TylerDM.StandardLibrary.System.Threading;
+global using System.Numerics;
+global using System.Diagnostics.CodeAnalysis;
+global using TylerDM.StandardLibrary.Collections;
+global using TylerDM.StandardLibrary.Statistics;
