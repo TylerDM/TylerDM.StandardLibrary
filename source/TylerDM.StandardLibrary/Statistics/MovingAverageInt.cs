@@ -13,7 +13,9 @@ public class MovingAverageInt
 		ArgumentOutOfRangeException.ThrowIfLessThan(sampleSize, 2);
 
 		_queue = new(sampleSize);
-		_queue.Enqueue(initialValue);
+
+		if (initialValue != default)
+			_queue.Enqueue(initialValue);
 	}
 
 	public void Add(int sample) =>
