@@ -35,16 +35,12 @@ public static class EnumExt
 		values.OrderByDescending(x => select(x).GetOrder());
 
 	public static string GetDescription(this Enum value) =>
-		StringExt.WhitespaceCoalesce(
-			value.getEnumAttributeProperty<DisplayAttribute, string?>(x => x.Description),
-			value.ToString()
-		);
+		value.getEnumAttributeProperty<DisplayAttribute, string?>(x => x.Description) ??
+		value.ToString();
 
 	public static string GetName(this Enum value) =>
-		StringExt.WhitespaceCoalesce(
-			value.getEnumAttributeProperty<DisplayAttribute, string?>(x => x.Name),
-			value.ToString()
-		);
+		value.getEnumAttributeProperty<DisplayAttribute, string?>(x => x.Name) ??
+		value.ToString();
 	#endregion
 
 	#region private methods
