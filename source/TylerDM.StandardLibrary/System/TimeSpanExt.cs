@@ -9,7 +9,7 @@ public static class TimeSpanExt
 	/// <summary>
 	/// Waits the specified amount of time.  Does not throw on cancellation, instead returning a bool representing if the wait completed or not.
 	/// </summary>
-	public static async Task<bool> WaitAsync(this TimeSpan timeout, CancellationToken ct)
+	public static async Task<bool> TryWaitAsync(this TimeSpan timeout, CancellationToken ct)
 	{
 		try
 		{
