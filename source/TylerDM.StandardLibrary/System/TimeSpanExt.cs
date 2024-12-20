@@ -6,6 +6,22 @@ public static class TimeSpanExt
 	private static readonly double _daysInMonth = 30.45d;
 	private static readonly int _daysInWeek = 7;
 
+	/// <summary>
+	/// Waits the specified amount of time.  Does not throw on cancellation, instead returning a bool representing if the wait completed or not.
+	/// </summary>
+	public static async Task<bool> TryWaitAsync(this TimeSpan timeout, CancellationToken ct)
+	{
+		try
+		{
+			await Task.Delay(timeout, ct);
+			return true;
+		}
+		catch (TaskCanceledException)
+		{
+			return false;
+		}
+	}
+	
 	public static TimeSpan Sum<T>(this IEnumerable<T> enumerable, Func<T, TimeSpan> select) =>
 		enumerable.Select(select).Sum();
 
