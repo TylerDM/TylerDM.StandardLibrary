@@ -18,3 +18,4 @@ global using System.Diagnostics.CodeAnalysis;
 global using TylerDM.StandardLibrary.Collections;
 global using TylerDM.StandardLibrary.Statistics;
 global using Microsoft.Extensions.Hosting;
+global using Microsoft.Extensions.Logging;
