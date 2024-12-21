@@ -5,7 +5,7 @@ public abstract class HostedService(ILogger? _logger = null): BackgroundService
     private readonly Gate _startupGate = new();
 
     private Task? startTask;
-    private HostedServiceStatus status = HostedServiceStatus.Stopped; 
+    private HostedServiceStatus status = HostedServiceStatus.NotStarted; 
     
     public HostedServiceStatus Status
     {
