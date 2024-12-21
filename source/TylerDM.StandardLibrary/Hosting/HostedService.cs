@@ -1,12 +1,21 @@
 ﻿namespace TylerDM.StandardLibrary.Hosting;
 
-public abstract class HostedService: BackgroundService
+public abstract class HostedService(ILogger? _logger = null): BackgroundService
 {
     private readonly Gate _startupGate = new();
 
     private Task? startTask;
-
-    public HostedServiceStatus Status { get; private set; } = HostedServiceStatus.NotStarted;
+    private HostedServiceStatus status = HostedServiceStatus.Stopped; 
+    
+    public HostedServiceStatus Status
+    {
+        get => status;
+        private set
+        {
+            status = value;
+            _logger?.LogInformation($"{nameof(Status)}: {status}");
+        }
+    }
 
     public Task WaitForStartAsync(TimeSpan timeout) =>
         _startupGate.WaitAsync(timeout);
@@ -28,9 +37,10 @@ public abstract class HostedService: BackgroundService
             Status = HostedServiceStatus.Stopping;
             _startupGate.Cancel();
         }
-        catch
+        catch (Exception ex)
         {
             Status = HostedServiceStatus.Crashed;
+            _logger?.LogError(ex, $"Error occured during {nameof(startAsync)}().");
             _startupGate.Cancel();
             throw;
         }
@@ -47,9 +57,10 @@ public abstract class HostedService: BackgroundService
         {
             Status = HostedServiceStatus.Stopped;
         }
-        catch
+        catch (Exception ex)
         {
             Status = HostedServiceStatus.Crashed;
+            _logger?.LogError(ex, $"Error occured during {nameof(executeAsync)}().");
             throw;
         }
     }
@@ -67,6 +78,12 @@ public abstract class HostedService: BackgroundService
         }
         catch (OperationCanceledException)
         {
+        }
+        catch (Exception ex)
+        {
+            Status = HostedServiceStatus.Crashed;
+            _logger?.LogError(ex, $"Error occured during {nameof(executeAsync)}().");
+            throw;
         }
         Status = HostedServiceStatus.Stopped;
     }
