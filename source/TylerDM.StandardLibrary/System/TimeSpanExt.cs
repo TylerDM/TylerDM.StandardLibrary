@@ -22,6 +22,12 @@ public static class TimeSpanExt
 		}
 	}
 	
+	/// <summary>
+	/// Waits the specified amount of time.
+	/// </summary>
+	public static Task WaitAsync(this TimeSpan timeout, CancellationToken ct = default) =>
+		Task.Delay(timeout, ct);
+	
 	public static TimeSpan Sum<T>(this IEnumerable<T> enumerable, Func<T, TimeSpan> select) =>
 		enumerable.Select(select).Sum();
 

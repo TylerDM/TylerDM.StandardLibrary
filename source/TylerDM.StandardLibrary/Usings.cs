@@ -19,3 +19,5 @@ global using TylerDM.StandardLibrary.Collections;
 global using TylerDM.StandardLibrary.Statistics;
 global using Microsoft.Extensions.Hosting;
 global using Microsoft.Extensions.Logging;
+global using TylerDM.StandardLibrary.Patterns;
+global using TylerDM.StandardLibrary.System.Threading.Tasks;
