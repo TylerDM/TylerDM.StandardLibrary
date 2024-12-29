@@ -2,11 +2,12 @@
 
 	<PropertyGroup>
 		<IsPackable>true</IsPackable>
-		<Version>4.9.0</Version>
+		<Version>4.10.0</Version>
 		<RepositoryType>Git</RepositoryType>
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
