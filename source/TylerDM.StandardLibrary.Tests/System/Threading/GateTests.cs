@@ -18,7 +18,7 @@ public class GateTests
     [Fact]
     public async Task Normal()
     {
-        var gate = new Gate();
+        using var gate = new Gate();
         Assert.Equal(GateStatus.Closed, gate.Status);
         var task = Task.Run(() => gate.TryWaitAsync());
         Assert.False(task.IsCompleted);
@@ -32,7 +32,7 @@ public class GateTests
     [Fact]
     public async Task Close()
     {
-        var gate = new Gate();
+        using var gate = new Gate();
         gate.Open();
         Assert.Equal(GateStatus.Opened, gate.Status);
         
@@ -51,7 +51,7 @@ public class GateTests
     [Fact]
     public void Cancelled()
     {
-        var gate = new Gate();
+        using var gate = new Gate();
         Assert.Equal(GateStatus.Closed, gate.Status);
         
         gate.Cancel();
