@@ -12,9 +12,6 @@ public class CancellableBackgroundTask : IDisposable
 
     public CancellableBackgroundTask(Func<CancellationToken, Task> func) =>
         _task = Task.Run(() => func(_cts.Token));
-    
-    public CancellableBackgroundTask(Action<CancellationToken> action) =>
-        _task = Task.Run(() => action(_cts.Token));
 
     /// <summary>
     /// Wait for the task to complete.
@@ -37,6 +34,7 @@ public class CancellableBackgroundTask : IDisposable
         if (disposed) return;
         disposed = true;
         
+        _cts.Cancel();
         _cts.Dispose();
     }
 }
