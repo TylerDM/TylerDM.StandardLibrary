@@ -9,8 +9,7 @@ public class NumericGate(int initialValue, Func<int, bool>? openWhen) : IDisposa
     
     private readonly Gate _gate = new();
     private readonly Func<int, bool> _openWhen = openWhen ?? _defaultOpenWhen;
-    
-    private DisposedTracker<NumericGate> disposed;
+    private readonly DisposedTracker<NumericGate> disposed = new();
 
     public int Value { get; private set; } = initialValue;
 
@@ -67,8 +66,7 @@ public class NumericGate(int initialValue, Func<int, bool>? openWhen) : IDisposa
 
     public void Dispose()
     {
-        if (disposed) return;
-        disposed.Dispose(); 
+        if (disposed.Dispose()) return; 
         
         _gate.Dispose();
     }
