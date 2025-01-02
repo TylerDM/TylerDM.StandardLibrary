@@ -29,13 +29,17 @@ public static class CancellationTokenExt
     
     public static Task WaitForCancelAsync(this CancellationToken ct, CancellationToken cancelCt = default)
     {
+        if (ct.IsCancellationRequested) return Task.CompletedTask;  
+        
         var tcs = new TaskCompletionSource();
         cancelCt.Register(() =>
         {
             if (tcs.Task.Status != TaskStatus.Running) return;
             tcs.SetCanceled();
         });
-        ct.Register(() => tcs.SetResult());
+        ct.Register(() => 
+            tcs.SetResult()
+        );
         return tcs.Task;
     }
     
