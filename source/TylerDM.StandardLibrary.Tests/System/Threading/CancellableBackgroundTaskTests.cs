@@ -5,21 +5,23 @@ public class CancellableBackgroundTaskTests
     [Fact]
     public async Task Test()
     {
-        Task letPropagateAsync() =>
-            TimeSpan.FromMilliseconds(1).WaitAsync(); 
         var running = false;
+        using var gate = new Gate();
         
         var cbt = new CancellableBackgroundTask(async ct =>
         {
-            running = true; 
+            running = true;
+            gate.Open();
             await ct.WaitForCancelAsync();
             running = false;
+            gate.Open();
         });
-        await letPropagateAsync();
+        await gate.WaitAsync();
         Assert.True(running);
+        gate.Close();
         
         cbt.Dispose();
-        await letPropagateAsync();
+        await gate.WaitAsync();
         Assert.False(running);
     }
 }

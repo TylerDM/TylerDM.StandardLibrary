@@ -14,10 +14,29 @@ public class CancellableBackgroundTask : IDisposable
         _task = Task.Run(() => func(_cts.Token));
 
     /// <summary>
+    /// Wait for the task to complete, or the timeout to expire.
+    /// </summary>
+    public async Task WaitAsync(TimeSpan timeout)
+    {
+        using var cts = new CancellationTokenSource(timeout);
+        await WaitAsync(cts.Token); 
+    }
+    
+    /// <summary>
     /// Wait for the task to complete.
     /// </summary>
     public Task WaitAsync(CancellationToken ct = default) =>
         _task.WaitAsync(ct);
+
+    /// <summary>
+    /// Wait for the task to complete.
+    /// </summary>
+    /// <returns>True if the task completed successfully.</returns>
+    public async Task<bool> TryWaitAsync(TimeSpan timeout)
+    {
+        using var cts = new CancellationTokenSource(timeout);
+        return await TryWaitAsync(cts.Token); 
+    }
     
     /// <summary>
     /// Wait for the task to complete.
