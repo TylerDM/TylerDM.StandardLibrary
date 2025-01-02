@@ -6,19 +6,16 @@ public class CancellationTokenExtTests
     public async Task WaitForCancelAsyncTest()
     {
         Task letPropagateAsync() =>
-            TimeSpan.FromMilliseconds(100).WaitAsync(); 
+            TimeSpan.FromMilliseconds(1).WaitAsync(); 
         
         using var cts = new CancellationTokenSource();
         var running = false;
         
-        void setRunning(bool value) =>
-            running = value;
-        
         var task = Task.Run(async () =>
         {
-            setRunning(true);
+            running = true;
             await cts.Token.WaitForCancelAsync();
-            setRunning(false);
+            running = false;
         });
         
         await letPropagateAsync();

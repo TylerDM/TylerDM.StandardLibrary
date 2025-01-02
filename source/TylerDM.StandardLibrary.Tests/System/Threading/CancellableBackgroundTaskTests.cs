@@ -6,7 +6,7 @@ public class CancellableBackgroundTaskTests
     public async Task Test()
     {
         Task letPropagateAsync() =>
-            TimeSpan.FromMilliseconds(10).WaitAsync(); 
+            TimeSpan.FromMilliseconds(1).WaitAsync(); 
         var running = false;
         
         var cbt = new CancellableBackgroundTask(async ct =>
