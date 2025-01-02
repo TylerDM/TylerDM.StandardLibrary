@@ -1,18 +1,25 @@
-﻿namespace TylerDM.StandardLibrary.System.Threading;
+﻿using TylerDM.StandardLibrary.System.Threading.Tasks;
+
+namespace TylerDM.StandardLibrary.System.Threading;
 
 public class GateTests
 {
+    private static readonly TimeSpan _timeout = TimeSpan.FromSeconds(1);
+    
     [Fact]
     public async Task ExternalCtsCancelled()
     {
         using var cts = new CancellationTokenSource();
-        var gate = new Gate();
-        var task = Task.Run(() => gate.TryWaitAsync(cts.Token));
-        Assert.False(task.IsCompleted);
+        using var gate = new Gate();
+        
+        var gateWait = gate.TryWaitAsync(cts.Token);
+        Assert.False(gateWait.IsCompleted);
+        
         await cts.CancelAsync();
-        await task.WaitAsync(TimeSpan.FromMilliseconds(10));
-        Assert.True(task.IsCompletedSuccessfully);
-        Assert.False(await task);
+        await gateWait.TryWaitAsync(_timeout);
+        
+        Assert.True(gateWait.IsCompletedSuccessfully);
+        Assert.False(await gateWait);
     }
     
     [Fact]
@@ -20,13 +27,17 @@ public class GateTests
     {
         using var gate = new Gate();
         Assert.Equal(GateStatus.Closed, gate.Status);
-        var task = Task.Run(() => gate.TryWaitAsync());
-        Assert.False(task.IsCompleted);
+        
+        var gateWait = gate.TryWaitAsync();
+        Assert.False(gateWait.IsCompleted);
+        Assert.Equal(GateStatus.Closed, gate.Status);
+        
         gate.Open();
         Assert.Equal(GateStatus.Opened, gate.Status);
-        await task.WaitAsync(TimeSpan.FromMilliseconds(10));
-        Assert.True(task.IsCompletedSuccessfully);
-        Assert.True(await task);
+        
+        await gateWait.TryWaitAsync(_timeout);
+        Assert.True(gateWait.IsCompletedSuccessfully);
+        Assert.True(await gateWait);
     }
     
     [Fact]
