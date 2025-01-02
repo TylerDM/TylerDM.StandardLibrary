@@ -3,6 +3,25 @@
 public static class EnumExt
 {
 	#region methods
+	public static void RequireDefined<T>(this T value)
+		where T : struct, Enum
+	{
+		if (Enum.IsDefined(value)) return;
+		throw new Exception("Enum does not contain this value.");
+	}
+
+	public static bool IsDefined<T>(this T value)
+		where T : struct, Enum =>
+		Enum.IsDefined(value);
+
+	public static TTo ToEnum<TTo>(this Enum from)
+		where TTo : struct, Enum
+	{
+		var to = (TTo)(object)from;
+		to.RequireDefined();
+		return to;
+	}
+	
 	public static T? ParseNullable<T>(this string value)
 		where T : struct, Enum
 	{

@@ -13,6 +13,34 @@ public class EnumExtTests
 		Two
 	}
 
+	enum EnumTwo
+	{
+		TotallyNotBlank = GetNameEnum.Blank,
+		TotallyNotOne = GetNameEnum.One,
+		TotallyNotTwo = GetNameEnum.Two,
+	}
+
+	[Fact]
+	public void ToEnum()
+	{
+		Assert.Equal(EnumTwo.TotallyNotBlank, GetNameEnum.Blank.ToEnum<EnumTwo>());
+		Assert.NotEqual(EnumTwo.TotallyNotOne, GetNameEnum.Blank.ToEnum<EnumTwo>());
+	}
+
+	[Fact]
+	public void RequireDefined()
+	{
+		Assert.ThrowsAny<Exception>(() => ((GetNameEnum)999).RequireDefined());
+		GetNameEnum.Blank.RequireDefined();
+	}
+
+	[Fact]
+	public void IsDefined()
+	{
+		Assert.False(((GetNameEnum)999).IsDefined());
+		Assert.True(GetNameEnum.Blank.IsDefined());
+	}
+	
 	[Fact]
 	public void GetName()
 	{
