@@ -18,7 +18,7 @@ public static class StringExt
 	/// <summary>
 	/// Throw if IsNullOrWhiteSpace() == false.
 	/// </summary>
-	public static void RequireContent(this string value)
+	public static void RequireContent(this string? value)
 	{
 		if (value.HasContent() == false) 
 			throw new Exception("Unexpected null or whitespace string.");
@@ -27,10 +27,10 @@ public static class StringExt
 	/// <summary>
 	/// Inverse of IsNullOrWhiteSpace().
 	/// </summary>
-	public static bool HasContent(this string text) =>
+	public static bool HasContent(this string? text) =>
 		string.IsNullOrWhiteSpace(text) == false;
 	
-	public static bool IsEmpty(this string text) =>
+	public static bool IsEmpty(this string? text) =>
 		string.IsNullOrWhiteSpace(text);
 
 	public static string[] SplitLines(this string text) =>
