@@ -29,6 +29,9 @@ public static class StringExt
 	/// </summary>
 	public static bool HasContent(this string text) =>
 		string.IsNullOrWhiteSpace(text) == false;
+	
+	public static bool IsEmpty(this string text) =>
+		string.IsNullOrWhiteSpace(text);
 
 	public static string[] SplitLines(this string text) =>
 		text.SplitX(LineEndings);
