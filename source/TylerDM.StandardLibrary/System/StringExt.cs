@@ -15,6 +15,14 @@ public static class StringExt
 	#endregion
 
 	#region methods
+	public static string Truncate(this string text, int maxLength)
+	{
+		ArgumentOutOfRangeException.ThrowIfLessThan(maxLength, 0, nameof(maxLength));
+		
+		if (text.Length < maxLength) return text;
+		return text[..maxLength];
+	}
+	
 	/// <summary>
 	/// Throw if IsNullOrWhiteSpace() == false.
 	/// </summary>
