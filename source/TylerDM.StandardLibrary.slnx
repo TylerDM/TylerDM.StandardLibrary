@@ -1,0 +1,9 @@
+﻿<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Build.props" />
+    <File Path="..\.github\workflows\on-main-merge-publish.yaml" />
+    <File Path="..\.github\workflows\on-pr-test.yaml" />
+  </Folder>
+  <Project Path="TylerDM.StandardLibrary.Tests\TylerDM.StandardLibrary.Tests.csproj" />
+  <Project Path="TylerDM.StandardLibrary\TylerDM.StandardLibrary.csproj" />
+</Solution>

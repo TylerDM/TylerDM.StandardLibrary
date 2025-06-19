@@ -15,10 +15,18 @@ public static class StringExt
 	#endregion
 
 	#region methods
+	public static string Truncate(this string text, int maxLength)
+	{
+		ArgumentOutOfRangeException.ThrowIfLessThan(maxLength, 0, nameof(maxLength));
+		
+		if (text.Length < maxLength) return text;
+		return text[..maxLength];
+	}
+	
 	/// <summary>
 	/// Throw if IsNullOrWhiteSpace() == false.
 	/// </summary>
-	public static void RequireContent(this string value)
+	public static void RequireContent(this string? value)
 	{
 		if (value.HasContent() == false) 
 			throw new Exception("Unexpected null or whitespace string.");
@@ -27,8 +35,11 @@ public static class StringExt
 	/// <summary>
 	/// Inverse of IsNullOrWhiteSpace().
 	/// </summary>
-	public static bool HasContent(this string text) =>
+	public static bool HasContent(this string? text) =>
 		string.IsNullOrWhiteSpace(text) == false;
+	
+	public static bool IsEmpty(this string? text) =>
+		string.IsNullOrWhiteSpace(text);
 
 	public static string[] SplitLines(this string text) =>
 		text.SplitX(LineEndings);
