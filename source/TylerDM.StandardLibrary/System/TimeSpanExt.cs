@@ -34,7 +34,10 @@ public static class TimeSpanExt
 	public static TimeSpan Sum(this IEnumerable<TimeSpan> enumerable) =>
 		new(enumerable.Select(x => x.Ticks).Sum());
 
-	public static string ToFriendlyString(this TimeSpan timeSpan, TimeIntervals maxInterval)
+	/// <summary>
+	/// Converts a TimeSpan into a friendly string with the largest interval that is >= 1.  For example, a TimeSpan of 90 days would return "3 Months".
+	/// </summary>
+	public static string ToFriendlyString(this TimeSpan timeSpan, TimeIntervals maxInterval = TimeIntervals.Year)
 	{
 		var totalDays = timeSpan.TotalDays;
 
