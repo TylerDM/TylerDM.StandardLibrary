@@ -21,3 +21,4 @@ global using Microsoft.Extensions.Hosting;
 global using Microsoft.Extensions.Logging;
 global using TylerDM.StandardLibrary.Patterns;
 global using TylerDM.StandardLibrary.System.Threading.Tasks;
+global using TylerDM.StandardLibrary.Time;
